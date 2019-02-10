@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "6f56c309-3b46-4ac1-9815-a8e7061755b9",
+		"name": "LovePop Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Orders/Retrieve",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"num\": 3\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/orders/retrieve",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"orders",
+						"retrieve"
+					],
+					"query": [
+						{
+							"key": "num",
+							"value": "100",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Orders/Add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"orders\": [\n    {\n      \"id\": \"139\",\n      \"value\": \"high\",\n      \"shipByDate\": \"2018-10-31\"\n    },\n    { \n      \"id\": \"2998\",\n      \"value\": \"medium\",\n      \"shipByDate\": \"2018-10-23\"\n    },\n    {\n      \"id\": \"593\",\n      \"value\": \"medium\",\n      \"shipByDate\": \"2018-10-22\"\n    },\n    {\n      \"id\": \"11194\",\n      \"value\": \"low\",\n      \"shipByDate\": \"2018-10-26\"\n    },\n    {\n      \"id\": \"99\",\n      \"value\": \"high\",\n      \"shipByDate\": \"2018-10-25\"\n    }\n  ]\n}"
+				},
+				"url": {
+					"raw": "localhost:3000/orders/add",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"orders",
+						"add"
+					],
+					"query": [
+						{
+							"key": "num",
+							"value": "100",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
