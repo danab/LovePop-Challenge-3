@@ -2,6 +2,7 @@ const {
   getTodaysOrders,
   getFutureOrders,
   getOverdueOrders,
+  markOrdersFulfilled,
 } = require('../utils');
 
 module.exports = async (req, res) => {
@@ -31,9 +32,15 @@ module.exports = async (req, res) => {
     }
 
     // Mark orders as fulfilled
+    await markOrdersFulfilled(retrieved);
 
     // "Must provide prioritization order"
+    const orders = retrieved.map((order, i) => {
+      return { ...order, priority: i + 1 };
+    });
+
+    res.json({ success: true, retrieved: orders.length, orders });
   } catch (err) {
-    console.error(err);
+    res.json({ success: false, error: err });
   }
 };

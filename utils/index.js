@@ -19,6 +19,7 @@ const createQuery = (date, comparator, limit) => {
     SELECT *
     FROM orders
     WHERE shipByDate ${comparator} "${date}"
+    AND fulfilled = 0
     ORDER BY shipByDate ASC, value DESC
     LIMIT ${limit}
   `;
@@ -40,14 +41,49 @@ const getFutureOrders = (date, limit) => {
     SELECT *
     FROM orders
     WHERE shipByDate > "${date}"
+    AND fulfilled = 0
     ORDER BY value DESC
     LIMIT ${limit}
   `;
   return getOrders(query);
 };
 
+const markOrdersFulfilled = orders => {
+  const ids = orders.map(order => order.id);
+  const query = `
+    UPDATE orders
+    SET fulfilled = 1
+    WHERE id IN (${ids.join(', ')})
+  `;
+  return new Promise((resolve, reject) => {
+    db.run(query, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+// Dummy data generator
+// eslint-disable-next-line
+const addSomeOrders = () => {
+  db.serialize(() => {
+    for (var i = 0; i < 50; i++) {
+      db.run(`
+        INSERT INTO orders (id, shipByDate, value)
+        VALUES ( ${Math.floor(Math.random() * 100000)}, '2019-0${Math.ceil(
+        Math.random() * 4
+      )}-10', ${Math.floor(Math.random() * 3)})
+    `);
+    }
+  });
+};
+
 module.exports = {
   getOverdueOrders,
   getTodaysOrders,
   getFutureOrders,
+  markOrdersFulfilled,
 };

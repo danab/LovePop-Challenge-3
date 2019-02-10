@@ -8,10 +8,12 @@ module.exports = () => {
 
     db.run(`
       CREATE TABLE IF NOT EXISTS orders (
-         id INTEGER PRIMARY KEY,
-         shipByDate TEXT NOT NULL,
-         value INTEGER NOT NULL,
-         CHECK( value = 2 OR value = 1 OR value = 0 )
+        id INTEGER PRIMARY KEY,
+        shipByDate TEXT NOT NULL,
+        value INTEGER NOT NULL,
+        fulfilled INTEGER DEFAULT 0,
+        CHECK( value = 2 OR value = 1 OR value = 0 ),
+        CHECK( fulfilled = 1 OR fulfilled = 0 )
       )
     `);
 
