@@ -11,6 +11,7 @@ const handleRetrieve = require('./retrieve');
 const handleAdd = require('./add');
 
 // Routes
+app.use(express.json());
 app.post('/orders/retrieve/', handleRetrieve);
 app.post('/orders/add/', handleAdd);
 
