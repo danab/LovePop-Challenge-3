@@ -66,6 +66,29 @@ const markOrdersFulfilled = orders => {
   });
 };
 
+const runQuery = query => {
+  return new Promise((resolve, reject) => {
+    db.run(query, (err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
+const insertOrders = orders => {
+  return orders.map(order => {
+    const value = order.value === 'high' ? 2 : order.value === 'medium' ? 1 : 0;
+    const query = `
+    INSERT INTO orders (id, shipByDate, value)
+    VALUES (${order.id}, ${order.shipByDate}, ${value})
+    `;
+    return runQuery(query);
+  });
+};
+
 // Dummy data generator
 // eslint-disable-next-line
 const addSomeOrders = () => {
@@ -85,5 +108,6 @@ module.exports = {
   getOverdueOrders,
   getTodaysOrders,
   getFutureOrders,
+  insertOrders,
   markOrdersFulfilled,
 };

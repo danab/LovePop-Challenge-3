@@ -41,6 +41,6 @@ module.exports = async (req, res) => {
 
     res.json({ success: true, retrieved: orders.length, orders });
   } catch (err) {
-    res.json({ success: false, error: err });
+    res.json({ success: false, error: err.message });
   }
 };
