@@ -16,10 +16,8 @@ module.exports = async (req, res) => {
       getFutureOrders(today, limit),
     ]);
 
-    let retrieved = [];
-
     // Pull from Overdue orders first
-    retrieved = overdue.slice(0, limit);
+    let retrieved = overdue.slice(0, limit);
 
     // Then Todays
     if (retrieved.length < limit) {

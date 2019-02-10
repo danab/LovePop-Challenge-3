@@ -1,7 +1,7 @@
 const sqlite = require('sqlite3').verbose();
 const db = new sqlite.Database('./orders.db');
 
-const getOrders = query => {
+const runQuery = query => {
   return new Promise((resolve, reject) => {
     db.all(query, (err, rows) => {
       if (err) {
@@ -27,12 +27,12 @@ const createQuery = (date, comparator, limit) => {
 
 const getOverdueOrders = (date, limit) => {
   const query = createQuery(date, '<', limit);
-  return getOrders(query);
+  return runQuery(query);
 };
 
 const getTodaysOrders = (date, limit) => {
   const query = createQuery(date, '=', limit);
-  return getOrders(query);
+  return runQuery(query);
 };
 
 const getFutureOrders = (date, limit) => {
@@ -45,7 +45,7 @@ const getFutureOrders = (date, limit) => {
     ORDER BY value DESC
     LIMIT ${limit}
   `;
-  return getOrders(query);
+  return runQuery(query);
 };
 
 const markOrdersFulfilled = orders => {
@@ -55,27 +55,7 @@ const markOrdersFulfilled = orders => {
     SET fulfilled = 1
     WHERE id IN (${ids.join(', ')})
   `;
-  return new Promise((resolve, reject) => {
-    db.run(query, (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    });
-  });
-};
-
-const runQuery = query => {
-  return new Promise((resolve, reject) => {
-    db.run(query, (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
-      }
-    });
-  });
+  return runQuery(query);
 };
 
 const insertOrders = orders => {
