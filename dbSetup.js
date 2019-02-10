@@ -10,13 +10,13 @@ module.exports = () => {
       CREATE TABLE IF NOT EXISTS orders (
          id INTEGER PRIMARY KEY,
          shipByDate TEXT NOT NULL,
-         value TEXT NOT NULL,
-         CHECK( value = 'high' OR value = 'medium' OR value = 'low' )
+         value INTEGER NOT NULL,
+         CHECK( value = 2 OR value = 1 OR value = 0 )
       )
     `);
 
     db.run(
-      `CREATE UNIQUE INDEX IF NOT EXISTS order_priority ON orders( shipByDate, value )`
+      `CREATE INDEX IF NOT EXISTS order_priority ON orders( shipByDate, value )`
     );
   });
 };

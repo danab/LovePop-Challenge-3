@@ -6,12 +6,13 @@ const port = 3000;
 const dbSetup = require('./dbSetup');
 dbSetup();
 
-app.get('/orders/retrieve/', (req, res) => {
-  res.send('Retrieve Orders');
-});
+// Route Handlers
+const handleRetrieve = require('./retrieve');
+const handleAdd = require('./add');
 
-app.get('/orders/add/', (req, res) => {
-  res.send('Add Orders');
-});
+// Routes
+app.post('/orders/retrieve/', handleRetrieve);
+app.post('/orders/add/', handleAdd);
 
+// Start Server
 app.listen(port, () => console.log(`Order app listening on port ${port}`)); // eslint-disable-line no-console
