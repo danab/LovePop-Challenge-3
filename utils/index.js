@@ -63,12 +63,11 @@ const insertOrders = orders => {
     const value = order.value === 'high' ? 2 : order.value === 'medium' ? 1 : 0;
     const query = `
     INSERT INTO orders (id, shipByDate, value)
-    VALUES (${order.id}, ${order.shipByDate}, ${value})
+    VALUES (${order.id}, "${order.shipByDate}", ${value})
     `;
     return runQuery(query);
   });
 };
-
 // Dummy data generator
 // eslint-disable-next-line
 const addSomeOrders = () => {
