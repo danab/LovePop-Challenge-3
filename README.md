@@ -2,7 +2,7 @@
 
 ## Overview
 
-I took an approach to challenge three that I thought would be so easy it was almost cheating. Rather than use a sorting function to prioritize the orders, I split the orders into three groups: `overdue`, `today`, and `future` (although as I type this I believe there isn't a distinction between `overdue` and `today`). SQL makes it easy to order by "value", so I just set the `ORDER BY` to the desired function and selected orders from the retrieved groups until the number of desired orders was fulfilled.
+I took an approach to challenge three that I thought would be so easy it was almost cheating. Rather than use a sorting function to prioritize the orders, I split the orders into three groups: `overdue`, `today`, and `future` (although as I type this I believe there isn't a distinction between `overdue` and `today`). SQL makes it easy to order by "value", so I just set the `ORDER BY` to the desired parameters and selected orders from the retrieved groups (`overdue`, then `today`, then `future`) until the number of desired orders was fulfilled.
 
 ## Pitfalls
 
@@ -13,7 +13,7 @@ I used SQLite with Node, a combination I had never used before. I thought it wou
 I hope you will respect that I took it right up to the 2 hour mark, but I didn't want to "cheat" by continuing further. Things that are missing
 
 - Testing - There is actually so little logic that isn't handled by the database, there doesn't need to be much testing here. But of course there should be some
-- Validation - There is current **zero** validation of inputs, and therefore it will break if you don't provide it input in the expected form.
+- Validation - There is currently **zero** validation of inputs, and therefore it will break if you don't provide it input in the expected form.
 
 ## Running
 
@@ -24,7 +24,7 @@ yarn install
 yarn start
 ```
 
-This will create a blank database and run the server at `localhost:3000`. It will expose two routes:
+This will create a blank database and run the server at `localhost:3000`. It will expose two routes. I have included a simple Postman collection if you want to see examples of working API routes.
 
 ### Add
 
